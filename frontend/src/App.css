@@ -39,9 +39,9 @@
 }
 
 .landingMainContainer > div:nth-child(1) div[role='button'] {
-  background: rgba(255,255,255,0.1);
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
   width: fit-content;
-  padding: 1rem;
+  padding: 12px 30px;
   border-radius: 20px;
   margin-top: 1.9rem;
 }
@@ -49,10 +49,11 @@
 .landingMainContainer > div:nth-child(1) div[role='button'] a {
   text-decoration: none;
   color: #FFFFFF;
-  font-size: 1.7rem;
+  font-size: 1.9rem;
 }
 
 .landingMainContainer > div:nth-child(2) img {
   height: 94vh;
   width: auto;
 }
+
