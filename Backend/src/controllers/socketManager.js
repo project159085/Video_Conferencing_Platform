@@ -27,7 +27,7 @@ export const connectToSocket = (server) => {
 
             timeOnline[socket.id] = new Date();
 
-            for (let a = 0; a < connection[path].length; i++) {
+            for (let a = 0; a < connection[path].length; a++) {
                 io.to(connection[path][a]).emit("user_joined", socket.id, connection[path]);
             }
 
