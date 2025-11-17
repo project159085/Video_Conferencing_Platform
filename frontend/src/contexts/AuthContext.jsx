@@ -44,6 +44,7 @@ export const AuthProvider = ({ children }) => {
 
             if (request.status == HttpStatusCode.OK) {
                 localStorage.setItem("token", request.data.token);
+                router("/home")
             }
         } catch (err) {
             throw err;
