@@ -13,7 +13,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContext } from '../contexts/AuthContext';
-import Snackbar from '@mui/material/Snackbar';
+import { Snackbar } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -21,6 +22,8 @@ import Snackbar from '@mui/material/Snackbar';
 const defaultTheme = createTheme();
 
 export default function Authentication() {
+
+    const navigate = useNavigate();
 
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -37,32 +40,37 @@ export default function Authentication() {
 
     let handleAuth = async () => {
         try {
-            if (formState == 0) {
-
+            if (formState === 0) {
                 let result = await handleLogin(username, password);
+
+
                 console.log(result);
-                setUsername("");
+
                 setMessage(result);
                 setOpen(true);
+                setUsername("");
+                setPassword("");
                 setError("");
                 setFormState(0);
-                setPassword("");
+
+                setTimeout(() => navigate("/home"), 500);
             }
-            if (formState == 1) {
+
+            if (formState === 1) {
                 let result = await handleRegister(name, username, password);
-                console.log(result);
-                setUsername("");
                 setMessage(result);
                 setOpen(true);
+                setUsername("");
+                setPassword("");
                 setError("");
                 setFormState(0);
-                setPassword("");
             }
         } catch (err) {
-            let message = (err.response.data.message);
-            setError(message);
+            console.log(err);
+            setError(err.response?.data?.message || "Something wrong");
         }
     }
+
 
 
     return (
@@ -97,21 +105,21 @@ export default function Authentication() {
                             <LockOutlinedIcon />
                         </Avatar>
                         <div>
-                            <Button variant={formState == 0 ? "contained" : ""} onClick={() => { setFormState(0) }}>
+                            <Button variant={formState === 0 ? "contained" : ""} onClick={() => { setFormState(0) }}>
                                 Sign In
                             </Button>
-                            <Button variant={formState == 1 ? "contained" : ""} onClick={() => { setFormState(1) }}>
+                            <Button variant={formState === 1 ? "contained" : ""} onClick={() => { setFormState(1) }}>
                                 Sign Up
                             </Button>
                         </div>
                         <Box component="form" noValidate sx={{ mt: 1 }}>
-                            {formState == 1 ? <TextField
+                            {formState === 1 ? <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="username"
+                                id="name"
                                 label="Full Name"
-                                name="username"
+                                name="name"
                                 value={name}
                                 autoFocus
                                 onChange={(e) => setName(e.target.value)}
@@ -148,7 +156,7 @@ export default function Authentication() {
                                 sx={{ mt: 3, mb: 2 }}
                                 onClick={handleAuth}
                             >
-                                {formState === 0 ? "Log In" : "Register"}
+                                {formState === 0 ? "Login" : "Register"}
                             </Button>
                         </Box>
                     </Box>

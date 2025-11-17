@@ -1,23 +1,18 @@
 import axios, { HttpStatusCode } from "axios";
 import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 
 
 export const AuthContext = createContext({});
 
-const client = axios.create({
-    baseURL: "http://localhost:8000/api/users"
-})
-
 
 export const AuthProvider = ({ children }) => {
 
-    const authContext = useContext(AuthContext);
+    const client = axios.create({
+        baseURL: "http://localhost:8000/api/users"
+    })
 
-    const [userData, setUserData] = useState(authContext);
-
-    const router = useNavigate();
+    const [userData, setUserData] = useState(null);
 
     const handleRegister = async (name, username, password) => {
         try {
@@ -27,7 +22,7 @@ export const AuthProvider = ({ children }) => {
                 password: password
             })
 
-            if (request.status == HttpStatusCode.CREATED) {
+            if (request.status === 201) {
                 return request.data.message;
             }
         } catch (err) {
@@ -37,19 +32,19 @@ export const AuthProvider = ({ children }) => {
 
     const handleLogin = async (username, password) => {
         try {
-            let request = await client.post("/login", {
-                username: username,
-                password: password
-            });
+            let request = await client.post("/login", { username, password });
 
-            if (request.status == HttpStatusCode.OK) {
+            if (request.status === 200) {
                 localStorage.setItem("token", request.data.token);
-                router("/home")
+                return "Login Successful";
             }
         } catch (err) {
             throw err;
         }
-    }
+    };
+
+
+
 
     const data = {
         userData, setUserData, handleRegister, handleLogin

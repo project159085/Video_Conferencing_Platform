@@ -1,8 +1,6 @@
 import express from "express";
 import { createServer } from "node:http";
 
-import { Server } from "socket.io";
-
 import mongoose from "mongoose";
 import { connectToSocket } from "./controllers/socketManager.js";
 
@@ -21,7 +19,7 @@ app.use(express.urlencoded({ limit: "40kb", extended: true }));
 app.use("/api/users", userRoutes);
 
 const start = async () => {
-    app.set("mongo_user")
+    app.set("mongo_user", process.env.MONGO_USER || "project159085_db_user")
     const connectionDb = await mongoose.connect("mongodb+srv://project159085_db_user:BaH4XiP2Fo8dbWYN@cluster0.8m2ozso.mongodb.net/");
 
     console.log(`MONGO Connected DB HOst: ${connectionDb.connection.host}`)
