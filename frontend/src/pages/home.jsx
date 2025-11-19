@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
-import withAuth from "../utils/withAuth";
-import { useNavigate } from "react-router-dom";
-import "../App.css";
-import { IconButton } from "@mui/material";
+import React, { useContext, useState } from "react"
+import withAuth from "../utils/withAuth"
+import { useNavigate } from "react-router-dom"
+import "../App.css"
+import { IconButton } from "@mui/material"
 import RestoreIcon from "@mui/icons-material/Restore"
-import { Button, TextField } from "@mui/material";
-import { AuthContext } from "../contexts/AuthContext";
+import { Button, TextField } from "@mui/material"
+import { AuthContext } from "../contexts/AuthContext"
 
 function HomeComponent() {
 
